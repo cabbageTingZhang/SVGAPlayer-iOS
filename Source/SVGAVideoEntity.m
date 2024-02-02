@@ -12,6 +12,7 @@
 #import "SVGAVideoSpriteEntity.h"
 #import "SVGAAudioEntity.h"
 #import "Svga.pbobjc.h"
+#import "UIImage+Svga.h"
 
 #define MP3_MAGIC_NUMBER "ID3"
 
@@ -177,6 +178,7 @@ static dispatch_semaphore_t videoSemaphore;
             } else {
                 UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
                 if (image != nil) {
+                    image = [image imageByResizeToSize:image.size];
                     [images setObject:image forKey:key];
                 }
             }
@@ -185,6 +187,8 @@ static dispatch_semaphore_t videoSemaphore;
     self.images = images;
     self.audiosData = audiosData;
 }
+
+
 
 - (void)resetSpritesWithProtoObject:(SVGAProtoMovieEntity *)protoObject {
     NSMutableArray<SVGAVideoSpriteEntity *> *sprites = [[NSMutableArray alloc] init];
