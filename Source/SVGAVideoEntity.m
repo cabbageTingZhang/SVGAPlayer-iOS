@@ -154,6 +154,16 @@ static dispatch_semaphore_t videoSemaphore;
     NSMutableDictionary<NSString *, NSData *> *audiosData = [[NSMutableDictionary alloc] init];
     NSDictionary *protoImages = [protoObject.images copy];
     for (NSString *key in protoImages) {
+        // 确保 key 是有效的字符串，避免使用 nil 或空字符串
+        if (![key isKindOfClass:[NSString class]] || key.length == 0) {
+            continue;
+        }
+        
+        id protoData = protoImages[key];
+        if (!protoData) {
+            continue; // 防止 protoData 为空
+        }
+        
         NSString *fileName = [[NSString alloc] initWithData:protoImages[key] encoding:NSUTF8StringEncoding];
         if (fileName != nil) {
             NSString *filePath = [self.cacheDir stringByAppendingFormat:@"/%@.png", fileName];
