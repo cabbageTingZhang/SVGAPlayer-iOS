@@ -189,7 +189,7 @@ static dispatch_semaphore_t videoSemaphore;
                 UIImage *image = [[UIImage alloc] initWithData:protoImages[key] scale:2.0];
                 if (image != nil) {
                     image = [image imageByResizeToSize:image.size];
-                    if(image != nil) {
+                    if(image == nil) {
                         continue;
                     }
                     [images setObject:image forKey:key];
